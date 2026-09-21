@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phòng họp · Live transcription</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">PHOWHISPER · VI / EN</p>
+        <h1>Phòng họp trực tuyến</h1>
+        <p class="subtitle">Far-field Vietnamese and English live captions</p>
+      </div>
+      <div class="status"><span id="statusDot"></span><span id="status">Đang kết nối…</span></div>
+    </header>
+
+    <section class="room" aria-label="Meeting room">
+      <div class="stage">
+        <div class="participant">
+          <div class="avatar">Bạn</div>
+          <div>
+            <strong>Microphone phòng họp</strong>
+            <span id="levelLabel">Chưa bật</span>
+          </div>
+          <div class="meter"><i id="meter"></i></div>
+        </div>
+        <div class="controls">
+          <button id="toggle" disabled><span class="mic">●</span><span id="toggleText">Bật micro</span></button>
+          <button id="clear" class="secondary">Xóa phụ đề</button>
+        </div>
+        <p class="privacy">Audio is processed by your server and is not stored by this app.</p>
+      </div>
+
+      <aside class="captions">
+        <div class="caption-head">
+          <div><span class="live">LIVE</span><h2>Phụ đề / Captions</h2></div>
+          <span id="processing"></span>
+        </div>
+        <div id="transcript" class="transcript" aria-live="polite">
+          <div class="empty">
+            <span>VI ↔ EN</span>
+            <p>Bật micro và bắt đầu nói.<br>Turn on the microphone and start speaking.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
+
