@@ -13,7 +13,7 @@ eight gender/dialect labels and was fine-tuned from `vinai/PhoWhisper-small`.
 This project therefore uses the model in the role it was trained for:
 
 - `hr16/PhoWhisper-small-vispeech-classifier-v3`: optional acoustic speaker profile.
-- `vinai/PhoWhisper-small`: primary Vietnamese transcript candidate.
+- `vinai/PhoWhisper-medium`: primary Vietnamese transcript candidate (default; suited to 12 GB+ NVIDIA GPUs).
 - `openai/whisper-small`: optional second pass for English and VI/EN code-switching.
 
 The candidate selector prefers PhoWhisper for Vietnamese and uses the multilingual
@@ -48,7 +48,7 @@ RMS gain. This helps a distant microphone without amplifying silence indefinitel
 ## Quick start
 
 Requirements: Python 3.10–3.12, `libsndfile`, and ideally an NVIDIA GPU with at
-least 6–8 GB VRAM when both small models and the classifier are enabled.
+least 12 GB VRAM when PhoWhisper-medium, the mixed-language model, and the classifier are enabled.
 
 ```bash
 cp .env.example .env
@@ -88,7 +88,7 @@ to Compose.
 | Variable | Default | Purpose |
 |---|---|---|
 | `CLASSIFIER_MODEL_ID` | requested `hr16/...-v3` | Gender/dialect acoustic tagger |
-| `VIETNAMESE_ASR_MODEL_ID` | `vinai/PhoWhisper-small` | Vietnamese ASR candidate |
+| `VIETNAMESE_ASR_MODEL_ID` | `vinai/PhoWhisper-medium` | Primary Vietnamese ASR candidate |
 | `MIXED_ASR_MODEL_ID` | `openai/whisper-small` | English/code-switch ASR candidate |
 | `DEVICE` | `auto` | `cuda`, `mps`, or `cpu` override |
 | `VAD_AGGRESSIVENESS` | `2` | 0 accepts more sound; 3 rejects more noise |
