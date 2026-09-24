@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     classifier_model_id: str = "hr16/PhoWhisper-small-vispeech-classifier-v3"
-    vietnamese_asr_model_id: str = "vinai/PhoWhisper-small"
+    vietnamese_asr_model_id: str = "vinai/PhoWhisper-medium"
     mixed_asr_model_id: str = "openai/whisper-small"
     device: str = "auto"
     torch_dtype: Literal["float32", "float16", "bfloat16"] = "float16"
@@ -61,4 +61,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-
