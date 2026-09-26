@@ -73,10 +73,22 @@ class WhisperASR:
 
     @torch.inference_mode()
     def transcribe(self, audio: np.ndarray, sample_rate: int) -> ASRCandidate:
-        inputs = self.processor(audio, sampling_rate=sample_rate, return_tensors="pt")
-        input_features = inputs.input_features.to(self.device, dtype=self.model.dtype)
+        inputs = self.processor(
+            audio,
+            sampling_rate=sample_rate,
+            return_tensors="pt",
+            return_attention_mask=True,
+        )
+
+        input_features = inputs.input_features.to(
+            self.device,
+            dtype=self.model.dtype,
+        )
+        attention_mask = inputs.attention_mask.to(self.device)
+
         output = self.model.generate(
             input_features,
+            attention_mask=attention_mask,
             task="transcribe",
             language=None,
             max_new_tokens=160,
