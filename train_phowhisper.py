@@ -48,7 +48,7 @@ def prepare(example):
 ds = ds.map(
     prepare,
     remove_columns=ds["train"].column_names,
-    num_proc=1,
+    num_proc=4,
 )
 @dataclass
 class DataCollatorSpeechSeq2Seq:
@@ -100,19 +100,19 @@ def compute_metrics(pred):
 
 args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
-    per_device_train_batch_size=2,
-    per_device_eval_batch_size=2,
-    gradient_accumulation_steps=8,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    gradient_accumulation_steps=2,
     learning_rate=1e-5,
     warmup_ratio=0.1,
-    num_train_epochs=5,
+    num_train_epochs=2,
     fp16=True,
     gradient_checkpointing=True,
     gradient_checkpointing_kwargs={"use_reentrant": False},
     eval_strategy="steps",
-    eval_steps=250,
+    eval_steps=1000,
     save_strategy="steps",
-    save_steps=250,
+    save_steps=1000,
     logging_steps=25,
     predict_with_generate=True,
     generation_max_length=225,
@@ -121,6 +121,7 @@ args = Seq2SeqTrainingArguments(
     greater_is_better=False,
     save_total_limit=2,
     report_to="none",
+    ddp_find_unused_parameters=False
 )
 
 trainer = Seq2SeqTrainer(
